@@ -1,0 +1,139 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Here are some details about the template.",
+    "Parameters": {
+        "KeyName": {
+            "Description": "to enable ssh access to the instance",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "Default": "internforawsKey",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        },
+        "InstanceType": {
+            "Description": "Server EC2 instance types",
+            "Type": "String",
+            "Default": "t2.micro",
+            "AllowedValues": [
+                "t2.micro",
+                "t3.micro"
+            ]
+        },
+        "VpcId": {
+            "Description": "The ID of the default VPC",
+            "Type": "AWS::EC2::VPC::Id",
+            "Default": "vpc-027fafc9d1f0f29a7",
+            "ConstraintDescription": "Must be the ID of an existing VPC."
+        },
+        "SubnetId": {
+            "Description": "The ID of the default subnet in the default VPC",
+            "Type": "AWS::EC2::Subnet::Id",
+            "Default": "subnet-0961bdd70de4edee9",
+            "ConstraintDescription": "Must be the ID of an existing subnet."
+        }
+    },
+    "Mappings": {
+        "RegionMap": {
+            "us-east-1": {
+                "HVM64": "ami-0bb84b8ffd87024d8"
+            },
+            "us-west-1": {
+                "HVM64": "ami-0bb84b8ffd87024d8"
+            }
+        }
+    },
+    "Resources": {
+        "Ec2Instance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Fn::FindInMap": [
+                        "RegionMap",
+                        {
+                            "Ref": "AWS::Region"
+                        },
+                        "HVM64"
+                    ]
+                },
+                "InstanceType": {
+                    "Ref": "InstanceType"
+                },
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "SubnetId": {
+                    "Ref": "SubnetId"
+                },
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash\n",
+                                "sudo yum update -y\n",
+                                "sudo yum upgrade -y\n",
+                                "sudo yum install git -y\n",
+                                "#!/bin/bash",
+                                "sudo yum update -y",
+                                "sudo yum upgrade -y",
+                                "sudo yum install git -y",
+                                "sudo yum install docker -y",
+                                "sudo yum install java -y",
+                                "systemctl start docker",
+                                "systemctl enable docker",
+                                "usermod -a -G docker ec2-user"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "MySecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Allow SSH, HTTP and HTTPS access",
+                "VpcId": {
+                    "Ref": "VpcId"
+                },
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 80,
+                        "ToPort": 80,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 443,
+                        "ToPort": 443,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "InstanceId": {
+            "Description": "created new instance",
+            "Value": {
+                "Ref": "Ec2Instance"
+            }
+        },
+        "VpcId": {
+            "Description": "add existing VPC",
+            "Value": {
+                "Ref": "VpcId"
+            }
+        },
+        "SubnetId": {
+            "Description": "add existing subnet",
+            "Value": {
+                "Ref": "SubnetId"
+            }
+        }
+    }
+}
