@@ -75,19 +75,27 @@
                 ],
                 "UserData": {
                     "Fn::Base64": {
-                        "Fn::Join": [
-                            "",
+                        "Fn::Join": [ 
+                            "\n",
                             [
+                                
                                 "#!/bin/bash",
+                                "echo 'Updating system packages' >> /var/log/user-data.log",
                                 "sudo yum update -y",
+                                "echo 'Upgrading system packages' >> /var/log/user-data.log",
                                 "sudo yum upgrade -y",
+                                "echo 'Installing git' >> /var/log/user-data.log",
                                 "sudo yum install git -y",
+                                "echo 'Installing docker' >> /var/log/user-data.log",
                                 "sudo yum install docker -y",
+                                "echo 'Installing java' >> /var/log/user-data.log",
                                 "sudo yum install java -y",
+                                "echo 'Starting docker service' >> /var/log/user-data.log",
                                 "sudo systemctl start docker",
+                                "echo 'Enabling docker service' >> /var/log/user-data.log",
                                 "sudo systemctl enable docker",
-                                "sudo usermod -a -G docker ec2-user",
-                                "sudo yum upgrade -y"
+                                "echo 'Adding ec2-user to docker group' >> /var/log/user-data.log",
+                                "sudo usermod -a -G docker ec2-user"
                             ]
                         ]
                     }
