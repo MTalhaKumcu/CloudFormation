@@ -67,6 +67,12 @@
                         "Ref": "MySecurityGroup"
                     }
                 ],
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "Java-docker-github-EC2"
+                    }
+                ],
                 "UserData": {
                     "Fn::Base64": {
                         "Fn::Join": [
@@ -78,9 +84,10 @@
                                 "sudo yum install git -y",
                                 "sudo yum install docker -y",
                                 "sudo yum install java -y",
-                                "systemctl start docker",
-                                "systemctl enable docker",
-                                "usermod -a -G docker ec2-user"
+                                "sudo systemctl start docker",
+                                "sudo systemctl enable docker",
+                                "sudo usermod -a -G docker ec2-user",
+                                "sudo yum upgrade -y"
                             ]
                         ]
                     }
