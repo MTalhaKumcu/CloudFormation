@@ -28,6 +28,11 @@
             "Type": "AWS::EC2::Subnet::Id",
             "Default": "subnet-0961bdd70de4edee9",
             "ConstraintDescription": "Must be the ID of an existing subnet."
+        },
+        "GitHubToken": {
+            "Description": "GitHub Personal Access Token",
+            "Type": "String",
+            "NoEcho": true
         }
     },
     "Mappings": {
@@ -75,10 +80,9 @@
                 ],
                 "UserData": {
                     "Fn::Base64": {
-                        "Fn::Join": [ 
+                        "Fn::Join": [
                             "\n",
                             [
-                                
                                 "#!/bin/bash",
                                 "echo 'Updating system packages' >> /var/log/user-data.log",
                                 "sudo yum update -y",
@@ -90,12 +94,17 @@
                                 "sudo yum install docker -y",
                                 "echo 'Installing java' >> /var/log/user-data.log",
                                 "sudo yum install java -y",
+                                "sudo yum install java-1.8.0-openjdk -y",
                                 "echo 'Starting docker service' >> /var/log/user-data.log",
                                 "sudo systemctl start docker",
                                 "echo 'Enabling docker service' >> /var/log/user-data.log",
                                 "sudo systemctl enable docker",
                                 "echo 'Adding ec2-user to docker group' >> /var/log/user-data.log",
-                                "sudo usermod -a -G docker ec2-user"
+                                "sudo usermod -a -G docker ec2-user",
+                                "echo 'cloned github app' >> /var/log/user-data.log",
+                                {
+                                    "Fn::Sub": "git clone https://${GitHubToken}@github.com/MTalhaKumcu/internDockerfiles.git"
+                                }
                             ]
                         ]
                     }
@@ -126,6 +135,66 @@
                         "IpProtocol": "tcp",
                         "FromPort": 443,
                         "ToPort": 443,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 9090,
+                        "ToPort": 9090,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 8080,
+                        "ToPort": 8080,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 8888,
+                        "ToPort": 8888,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 8081,
+                        "ToPort": 8081,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 8761,
+                        "ToPort": 8761,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 7979,
+                        "ToPort": 7979,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 8083,
+                        "ToPort": 8083,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 8082,
+                        "ToPort": 8082,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 9411,
+                        "ToPort": 9411,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 3000,
+                        "ToPort": 3000,
                         "CidrIp": "0.0.0.0/0"
                     }
                 ]

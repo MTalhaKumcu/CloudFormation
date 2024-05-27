@@ -3,3 +3,4 @@
 3-you can check for installed programs >> //var/log/user-data.log 
 4-or git --version/ java --version / docker --version
 5-Do not forget to check docker status.
+6- you should add your private github cridentials in the cloud formation
