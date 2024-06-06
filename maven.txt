@@ -1,0 +1,33 @@
+cd /opt/
+sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
+sudo tar -xvdf apache-maven-3.9.6-bin.tar.gz
+mv apache-maven-3.9.6 maven
+cd maven
+pwd => copy the path and save somehwhere (/opt/apache-maven-3.9.6/bin)
+cd ..
+pwd => copy the path and save somehwhere (/opt/apache-maven-3.9.6)
+cd ~
+nano .bash_profile =>> 
+        M2_HOME=/opt/apache-maven-3.9.6 , 
+        M2=/opt/apache-maven-3.9.6/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME$:$M2_HOME (save)
+source .bash_profile
+cat .bash_profile
+mvn --version
+
+--------------
+
+java 
+---------
+sudo yum install java-1.8.0-openjdk -y 
+
+sudo wget https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.tar.gz
+tar -xvzf jdk-22_linux-x64_bin.tar.gz
+sudo mv jdk-22.0.1 /usr/share
+#add 
+export JAVA_HOME=/usr/share/jdk-22.0.1
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/libdt.jar:$JAVA_HOME/lib/tools.jar
+
+
+-------------------------------------
