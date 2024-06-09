@@ -90,6 +90,8 @@
                                 "sudo yum upgrade -y",
                                 "echo 'Installing git' >> /var/log/user-data.log",
                                 "sudo yum install git -y",
+                                "echo 'Installing maven' >> /var/log/user-data.log",
+                                "sudo yum install maven -y",
                                 "echo 'Installing docker' >> /var/log/user-data.log",
                                 "sudo yum install docker -y",
                                 "echo 'Installing java' >> /var/log/user-data.log",
@@ -103,6 +105,12 @@
                                 "cd ~",
                                 "sudo usermod -a -G docker ec2-user",
                                 "echo 'cloned github app' >> /var/log/user-data.log",
+                                "cd cd internDockerfiles/petclinic-microservices-main",
+                                "echo 'i m inside internDockerfiles/petclinic-microservices-main' >> /var/log/user-data.log",
+                                "chmod +x mvnw",
+                                "echo 'x previliges to mvnw' >> /var/log/user-data.log",
+                                "mvn clean install",
+                                "echo 'mvn clean install' >> /var/log/user-data.log",
                                 {
                                     "Fn::Sub": "git clone https://${GitHubToken}@github.com/MTalhaKumcu/internDockerfiles.git"
                                 }
