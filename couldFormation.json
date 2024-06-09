@@ -105,7 +105,7 @@
                                 "cd ~",
                                 "sudo usermod -a -G docker ec2-user",
                                 "echo 'cloned github app' >> /var/log/user-data.log",
-                                "cd cd internDockerfiles/petclinic-microservices-main",
+                                "cd internDockerfiles/petclinic-microservices-main",
                                 "echo 'i m inside internDockerfiles/petclinic-microservices-main' >> /var/log/user-data.log",
                                 "chmod +x mvnw",
                                 "echo 'x previliges to mvnw' >> /var/log/user-data.log",
