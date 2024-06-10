@@ -19,7 +19,7 @@ mvn --version
 
 java 
 ---------
-sudo yum install java-1.8.0-openjdk -y 
+sudo yum install java-1.8.0 -y 
 
 sudo wget https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.tar.gz
 tar -xvzf jdk-22_linux-x64_bin.tar.gz
