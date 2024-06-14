@@ -231,5 +231,3 @@
     }
 }
 
-//"echo 'Installing maven' >> /var/log/user-data.log",
-//  "sudo yum install maven -y",
