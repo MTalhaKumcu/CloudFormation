@@ -90,8 +90,6 @@
                                 "sudo yum upgrade -y",
                                 "echo 'Installing git' >> /var/log/user-data.log",
                                 "sudo yum install git -y",
-                                "echo 'Installing maven' >> /var/log/user-data.log",
-                                "sudo yum install maven -y",
                                 "echo 'Installing docker' >> /var/log/user-data.log",
                                 "sudo yum install docker -y",
                                 "echo 'Installing java' >> /var/log/user-data.log",
@@ -232,3 +230,6 @@
         }
     }
 }
+
+//"echo 'Installing maven' >> /var/log/user-data.log",
+//  "sudo yum install maven -y",

@@ -1,5 +1,5 @@
 cd /opt/
-sudo wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
+sudo wget https://dlcdn.apache.org/maven/maven-3/3.8.0/binaries/apache-maven-3.8.0-bin.tar.gz
 sudo tar -xvdf apache-maven-3.9.6-bin.tar.gz
 mv apache-maven-3.9.6 maven
 cd maven
@@ -8,7 +8,7 @@ cd ..
 pwd => copy the path and save somehwhere (/opt/apache-maven-3.9.6)
 cd ~
 nano .bash_profile =>> 
-        M2_HOME=/opt/apache-maven-3.9.6 , 
+        M2_HOME=/opt/apache-maven-3.9.6  
         M2=/opt/apache-maven-3.9.6/bin
 PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME$:$M2_HOME (save)
 source .bash_profile
@@ -31,3 +31,12 @@ export CLASSPATH=.:$JAVA_HOME/libdt.jar:$JAVA_HOME/lib/tools.jar
 
 
 -------------------------------------
+cd /opt/
+sudo wgethttps://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.1/apache-maven-3.8.1-bin.tar.gz
+sudo tar -xvzf apache-maven-3.8.1-bin.tar.gz
+sudo mv apache-maven-3.8.1 maven
+nano .bash_profile =>> 
+        M2_HOME=/opt/apache-maven-3.8.1
+        M2=/opt/apache-maven-3.8.1/bin
+PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME$:$M2_HOME
+source .bash_profile
