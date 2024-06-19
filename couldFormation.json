@@ -108,7 +108,7 @@
                                 "echo 'i m inside internDockerfiles/petclinic-microservices-main' >> /var/log/user-data.log",
                                 "chmod +x mvnw",
                                 "echo 'x previliges to mvnw' >> /var/log/user-data.log",
-                                "mvn clean install",
+                                "./mvnw clean install",
                                 "echo 'mvn clean install' >> /var/log/user-data.log",
                                 {
                                     "Fn::Sub": "git clone https://${GitHubToken}@github.com/MTalhaKumcu/internDockerfiles.git"
